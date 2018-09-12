@@ -1,0 +1,21 @@
+[package]
+name = "robohome_shared"
+version = "0.1.0"
+authors = ["Robert Masen <r@robertmasen.pizza>"]
+
+[dependencies]
+serde = "1"
+serde_derive = "1"
+serde_json = "1"
+toml = "0.4"
+chrono = { version = "0.4.4",features = ["serde"] }
+postgres = { version = "0.15.2", features = ["with-chrono", "with-uuid"] }
+uuid = { version = "0.5", features = ["serde"] }
+lazy_static = "1.0.2"
+reqwest = "0.8.8"
+env_logger = "0.5.12"
+log = "0.4.4"
+
+[dependencies.amqp]
+version = "0.1"
+default-features = false
