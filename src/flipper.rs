@@ -49,7 +49,7 @@ impl Flipper {
     }
 
     pub fn is_out_of_date(&self) -> bool {
-        self.current_date == Local::today()
+        self.current_date != Local::today()
     }
 
     pub fn get_today(&mut self) -> Result<(), Error> {
