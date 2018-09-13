@@ -1,3 +1,4 @@
+#[cfg(feature = "web")]
 use reqwest::Error as RError;
 use postgres::Error as PError;
 use amqp::AMQPError as AError;
@@ -10,7 +11,7 @@ use super::message::ChannelMessage;
 #[derive(Debug)]
 pub enum Error {
     Db(PError),
-    Req(RError),
+    Req(String),
     Rabbit(AError),
     Json(JError),
     Send(SendError<ChannelMessage>),
@@ -32,7 +33,6 @@ impl ::std::error::Error for Error {
     fn cause(&self) -> Option<&::std::error::Error> {
         match self {
             Error::Db(ref p) => Some(p),
-            Error::Req(ref r) => Some(r),
             Error::Rabbit(ref a) => Some(a),
             Error::Json(ref j) => Some(j),
             Error::Send(ref s) => Some(s),
@@ -62,10 +62,10 @@ impl From<PError> for Error {
         Error::Db(other)
     }
 }
-
+#[cfg(feature = "web")]
 impl From<RError> for Error {
     fn from(other: RError) -> Self {
-        Error::Req(other)
+        Error::Req(format!("{}", other))
     }
 }
 

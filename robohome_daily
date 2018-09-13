@@ -1,2 +1,2 @@
 #! /bin/bash
-RUST_LOG=robohome:debug,robohome:info,robohome:error,error ~/scripts/robohome_daily_updater >> ~/logs/robohom_updater.log
+RUST_LOG=robohome:debug,robohome:info,robohome:error,error ~/scripts/robohome_daily_updater >> ~/logs/robohome_updater.log

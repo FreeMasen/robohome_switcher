@@ -1,9 +1,10 @@
 use chrono::{DateTime, NaiveDateTime, Local, Datelike, Timelike, Weekday};
 use postgres::{Connection, TlsMode};
+#[cfg(feature = "web")]
 use reqwest::{get};
 
 use super::{CONFIG, error::Error};
-
+#[cfg(feature = "web")]
 pub fn check_for_daily_info() -> Result<bool, Error> {
     let c = get_conn()?;
     let today = Local::today().naive_local().and_hms(0,0,0);
@@ -11,7 +12,7 @@ pub fn check_for_daily_info() -> Result<bool, Error> {
     let count = c.query(r#"SELECT "Id" from "KeyTimes" WHERE "Date" = $1"#, &[&today])?.len();
     Ok(count != 4)
 }
-
+#[cfg(feature = "web")]
 pub fn get_daily_info() -> Result<(Time, Time), Error> {
     debug!(target: "robohome:debug", "get_daily_info");
     let ret: WeatherResponse = request_weather()?;
@@ -19,7 +20,7 @@ pub fn get_daily_info() -> Result<(Time, Time), Error> {
     let sunset = Time::from(ret.sun_phase.sunset.into()?, TimeKind::Sunset);
     Ok((sunrise, sunset))
 }
-
+#[cfg(feature = "web")]
 pub fn request_weather() -> Result<WeatherResponse, Error> {
     debug!(target: "robohome:debug", "request_weather");
     let mut attempts = 0;

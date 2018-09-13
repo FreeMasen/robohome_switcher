@@ -6,6 +6,7 @@ extern crate lazy_static;
 #[macro_use]
 extern crate log;
 extern crate postgres;
+#[cfg(feature = "web")]
 extern crate reqwest;
 extern crate serde;
 #[macro_use]

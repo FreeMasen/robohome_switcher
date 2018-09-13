@@ -4,6 +4,6 @@ version = "0.1.0"
 authors = ["Robert Masen <r@robertmasen.pizza>"]
 
 [dependencies]
-robohome_shared = { path = "../shared" }
+robohome_shared = { path = "../shared", features = ["web"] }
 log = "0.4.5"
 env_logger = "0.5.13"
